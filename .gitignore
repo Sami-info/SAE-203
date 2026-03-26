@@ -1,0 +1,16 @@
+# Fichiers système (Mac/Windows) qui polluent
+.DS_Store
+Thumbs.db
+
+# Dossiers de ton éditeur de code (VS Code, etc.)
+.vscode/
+.idea/
+
+# Fichiers de configuration contenant des mots de passe (TRÈS IMPORTANT)
+# Vous devrez créer un fichier config.php sur vos PC respectifs, 
+# mais il ne sera JAMAIS envoyé sur GitHub.
+config.php
+.env
+
+# Si plus tard vous utilisez npm pour Bootstrap par exemple
+node_modules/
