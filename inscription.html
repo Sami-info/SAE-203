@@ -8,7 +8,7 @@
                 <span class="text-xl font-bold">MMI Meaux</span> <span class="bg-blue-700 text-xs px-2 py-1 rounded-sm font-semibold text-blue-200">Stages</span> </div>
             
             <div class="space-x-4 text-sm font-medium">
-                <a href="index.html" class="hover:text-blue-200 transition">Connexion</a> </div>
+                <a href="connexion.php" class="hover:text-blue-200 transition">Connexion</a> </div>
         </div>
     </nav>
 
@@ -20,7 +20,8 @@
                 </div>
             </div>
 
-            <form action="#" method="POST" class="space-y-5">
+            <form action="connexion.php" method="POST" class="space-y-5">
+                <input type="hidden" name="action" value="inscription">
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresse e-mail universitaire</label>
                     <input type="email" id="email" name="email" required 
@@ -44,7 +45,7 @@
 
                 <div>
                     <button type="submit" 
-                        class="w-full bg-blue-650 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow transition duration-150 ease-in-out text-sm cursor-pointer">
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow transition duration-150 ease-in-out text-sm cursor-pointer">
                         S'inscrire
                     </button>
                     </div>
@@ -52,7 +53,7 @@
 
             <div class="mt-6 text-center text-sm">
                 <span class="text-gray-500">Déjà inscrit ?</span>
-                <a href="index.html" class="text-blue-600 hover:underline font-medium ml-1">Se connecter</a>
+                <a href="connexion.php" class="text-blue-600 hover:underline font-medium ml-1">Se connecter</a>
             </div>
 
         </div>

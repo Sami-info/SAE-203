@@ -1,3 +1,101 @@
+<?php
+// Démarrer la session (nécessaire pour stocker l'utilisateur connecté)
+session_start();
+
+// Messages affichés sur la page
+$erreur = '';
+$succes = '';
+
+// Message après une inscription réussie (redirection depuis l'inscription)
+if (isset($_GET['succes']) && $_GET['succes'] == '1') {
+    $succes = 'Inscription réussie ! Vous pouvez maintenant vous connecter.';
+}
+
+// Connexion à la base de données avec PDO
+try {
+    $pdo = new PDO("mysql:host=localhost;dbname=bdd_stage;charset=utf8mb4", "root", "");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion à la base de données.");
+}
+
+// Traitement des formulaires envoyés en POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Récupérer l'action : "inscription" ou "connexion" (par défaut connexion)
+    $action = $_POST['action'] ?? 'connexion';
+
+    // ---------- INSCRIPTION ----------
+    if ($action === 'inscription') {
+
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $password_confirm = $_POST['password_confirm'] ?? '';
+
+        // Vérifier que les champs ne sont pas vides
+        if ($email === '' || $password === '' || $password_confirm === '') {
+            $erreur = 'Veuillez remplir tous les champs.';
+        }
+        // Vérifier que les deux mots de passe sont identiques
+        elseif ($password !== $password_confirm) {
+            $erreur = 'Les mots de passe ne correspondent pas.';
+        }
+        // Vérifier que l'email est valide
+        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $erreur = 'Adresse e-mail invalide.';
+        }
+        else {
+            // Vérifier si l'email existe déjà
+            $stmt = $pdo->prepare("SELECT `N°Etudiant` FROM etudiant WHERE Email = ?");
+            $stmt->execute([$email]);
+
+            if ($stmt->fetch()) {
+                $erreur = 'Cette adresse e-mail est déjà utilisée.';
+            } else {
+                // Hasher le mot de passe (ne jamais stocker en clair)
+                $mot_de_passe_hash = password_hash($password, PASSWORD_DEFAULT);
+
+                // Insérer le nouvel étudiant (Nom, Prénom, Formation = NULL)
+                $stmt = $pdo->prepare(
+                    "INSERT INTO etudiant (Nom, Prenom, Email, Formation, mot_de_passe) VALUES (NULL, NULL, ?, NULL, ?)"
+                );
+                $stmt->execute([$email, $mot_de_passe_hash]);
+
+                // Rediriger vers la page de connexion avec un message de succès
+                header('Location: connexion.php?succes=1');
+                exit;
+            }
+        }
+
+    // ---------- CONNEXION ----------
+    } else {
+
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
+
+        if ($email === '' || $password === '') {
+            $erreur = 'Veuillez remplir tous les champs.';
+        } else {
+            // Chercher l'étudiant par email (requête préparée = protection injection SQL)
+            $stmt = $pdo->prepare("SELECT `N°Etudiant`, Email, mot_de_passe FROM etudiant WHERE Email = ?");
+            $stmt->execute([$email]);
+            $etudiant = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Vérifier l'email et le mot de passe
+            if ($etudiant && password_verify($password, $etudiant['mot_de_passe'])) {
+                // Connexion réussie : enregistrer les infos en session
+                $_SESSION['id_etudiant'] = $etudiant['N°Etudiant'];
+                $_SESSION['email'] = $etudiant['Email'];
+
+                header('Location: profil.php');
+                exit;
+            } else {
+                $erreur = 'Email ou mot de passe incorrect.';
+            }
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,7 +113,7 @@
                 <span class="bg-blue-700 text-xs px-2 py-1 rounded-sm uppercase font-semibold text-blue-200">Stages</span>
             </div>
             <div class="space-x-4 text-sm font-medium">
-                <a href="#" class="">Accueil</a>
+                <a href="accueil.html" class="">Accueil</a>
                 <a href="#" class="">Aide (ESUP)</a>
             </div>
         </div>
@@ -29,7 +127,19 @@
                 <p class="text-sm text-gray-500 mt-1">Connectez-vous pour accéder à votre espace personnalisé</p>
             </div>
 
-            <form action="#" method="POST" class="space-y-5">
+            <?php if ($succes !== ''): ?>
+            <div class="mb-4 p-3 bg-green-50 border border-green-200 text-green-800 rounded-md text-sm">
+                <?php echo htmlspecialchars($succes); ?>
+            </div>
+            <?php endif; ?>
+
+            <?php if ($erreur !== ''): ?>
+            <div class="mb-4 p-3 bg-red-50 border border-red-200 text-red-800 rounded-md text-sm">
+                <?php echo htmlspecialchars($erreur); ?>
+            </div>
+            <?php endif; ?>
+
+            <form action="connexion.php" method="POST" class="space-y-5">
                 
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresse e-mail universitaire</label>
@@ -63,7 +173,7 @@
             </div>
 
             <div class="text-center">
-                <a href="#" class="inline-block w-full text-center bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-md text-sm transition">
+                <a href="inscription.html" class="inline-block w-full text-center bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-md text-sm transition">
                     Créer un compte étudiant
                 </a>
             </div>
