@@ -1,1 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Stages - MMI Meaux</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col justify-between">
+
+    <nav class="bg-blue-900 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-xl font-bold tracking-wide">MMI Meaux</span>
+                <span class="bg-blue-700 text-xs px-2 py-1 rounded-sm uppercase font-semibold text-blue-200">Stages</span>
+            </div>
+            <div class="space-x-4 text-sm font-medium">
+                <a href="./accueil (1).html" class="">Accueil</a>
+                <a href="#" class="">Aide (ESUP)</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class=" flex items-center justify-center px-4 py-12">
+        <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full border border-gray-100">
+            
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800">Portail de Suivi des Stages</h1>
+                <p class="text-sm text-gray-500 mt-1">Connectez-vous pour accéder à votre espace personnalisé</p>
+            </div>
+
+            <form action="#" method="POST" class="space-y-5">
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresse e-mail universitaire</label>
+                    <input type="email" id="email" name="email" required 
+                        placeholder="etudiant@univ-eiffel.fr"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label for="password" class="text-sm font-medium text-gray-700">Mot de passe</label>
+                        <a href="#" class="text-xs text-blue-600 hover:underline">Mot de passe oublié ?</a>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <input type="password" id="password" name="password" required 
+                            placeholder="••••••••"
+                            class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+
+                        <button type="button" id="togglePassword"
+                            class="px-3 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-100 hover:text-blue-600">
+                            <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" 
+                        class="w-full bg-blue-650 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow transition duration-150 ease-in-out text-sm cursor-pointer">
+                        Se connecter
+                    </button>
+                </div>
+            </form>
+
+            <div class="relative flex py-5 items-center">
+                <div class="flex-grow border-t border-gray-200"></div>
+                <span class="flex-shrink mx-4 text-gray-400 text-xs uppercase">Nouveau stagiaire ?</span>
+                <div class="flex-grow border-t border-gray-200"></div>
+            </div>
+
+            <div class="text-center">
+                <a href="#" class="inline-block w-full text-center bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-md text-sm transition">
+                    Créer un compte étudiant
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+<footer class="bg-gray-900 text-gray-300 border-t border-gray-800 font-sans">
+        
+        <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+            
+            <div class="space-y-4">
+                <div class="flex items-center space-x-2 text-white">
+                    <span class="text-lg font-bold tracking-wide">MMI Meaux</span>
+                    <span class="bg-blue-600 text-[10px] px-1.5 py-0.5 rounded uppercase font-bold text-blue-100">Stages</span>
+                </div>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    Application officielle de suivi et de gestion des stages du département MMI de Meaux (Université Gustave Eiffel).
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-white text-sm font-semibold uppercase tracking-wider mb-4">Navigation</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-blue-400 transition">Accueil</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Offres de stages</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Espace Étudiant</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Espace Entreprise</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white text-sm font-semibold uppercase tracking-wider mb-4">Ressources</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-blue-400 transition">Portail ESUP</a></li> <li><a href="https://www.univ-gustave-eiffel.fr" target="_blank" class="hover:text-blue-400 transition">Univ Gustave Eiffel</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Guide des stages</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Contact Secrétariat</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white text-sm font-semibold uppercase tracking-wider mb-4">Suivez MMI Meaux</h3>
+                <div class="flex space-x-4 mb-4">
+                    <a href="#" class="text-gray-400 hover:text-blue-500 transition" aria-label="LinkedIn">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.588l.478-.59c.806-.997 2.076-1.24 3.186-1.24 3.89 0 4.76 2.59 4.76 5.909v6.78z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="text-xs text-gray-500">
+                    <p>Environnement de dev :</p>
+                    <p class="font-mono mt-1">PHP / MySQL (Mutualisé)</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bg-gray-950 text-gray-500 text-xs py-4 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
+                <div>
+                    &copy; 2026 BUT MMI Meaux — Projet SAé Suivi des Stages. Tous droits réservés.
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="">Mentions légales</a>
+                    <span>•</span>
+                    <a href="#" class="">Politique de confidentialité</a>
+                </div>
+            </div>
+        </div>
+</footer>
+    <script src="script.js"></script>
+</body>
+</html>
 
